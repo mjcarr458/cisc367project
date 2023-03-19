@@ -1,10 +1,13 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import {firestore} from "../firebase";
 import {addDoc, collection} from "@firebase/firestore"
+import {Button, ButtonGroup,ButtonToolbar,Dropdown} from "react-bootstrap"
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default function Home() {
     const messageRef = useRef();
     const ref = collection(firestore, "messages");
+    const [building, setBuilding] = useState(null);
 
     const handleSave = async(e) => {
         e.preventDefault();
@@ -20,11 +23,59 @@ export default function Home() {
             console.log(e)
         }
     }
-    return <div>
+
+    function changeBuilding(newBuilding){
+        setBuilding(newBuilding)
+        console.log(newBuilding)
+    }
+    return (
+    <div style={{ 
+    display: 'block',
+    border: '5px solid', 
+    width: '100%',
+    margin: 'auto', 
+    padding: '5%',
+    justifyContent: 'left' }}>
+        
         <form onSubmit={handleSave}>
             <label> Enter Message</label>
             <input type="text" ref = {messageRef} />
             <button type="submit">Save</button>
         </form>
+        
+        
+        <div style={{
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            width: "100%",
+            border: '5px solid'}}>
+        <Button>
+            Time
+        </Button>
+        <Dropdown>
+        <Dropdown.Toggle variant="primary">
+            {building ? building : "Choose Building" }
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+        <Dropdown.Item onClick={() => changeBuilding("Redding Hall")}>
+            Redding Hall
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => changeBuilding("Smith Hall")}>
+            Smith Hall
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => changeBuilding("Brown Lab")}>
+            Brown Lab
+          </Dropdown.Item>
+        </Dropdown.Menu>
+        </Dropdown>
+        <Button>
+            Accessiblity Info
+        </Button>
+        </div>
+
+
+
     </div>
+    );
 }
+
