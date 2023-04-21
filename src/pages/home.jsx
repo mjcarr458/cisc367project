@@ -1,8 +1,8 @@
-import React, {useRef, useState} from 'react'
-import {firestore} from "../firebase";
-import {addDoc, collection} from "@firebase/firestore"
-import {Button, ButtonGroup,ButtonToolbar,Dropdown} from "react-bootstrap"
+import { addDoc, collection } from "@firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.css';
+import React, { useRef, useState } from 'react';
+import { Button, Dropdown } from "react-bootstrap";
+import { firestore } from "../firebase";
 
 export default function Home() {
     const messageRef = useRef();
@@ -69,7 +69,7 @@ export default function Home() {
         </Dropdown.Menu>
         </Dropdown>
         <Button>
-            Accessiblity Info
+            Accessibility Info
         </Button>
         </div>
 
