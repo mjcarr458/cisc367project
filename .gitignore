@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+cisc367project/package-lock.json
+cisc367project/package.json
