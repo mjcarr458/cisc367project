@@ -1,0 +1,1 @@
+export const BUILDINGS = ["Redding Hall", "Smith Hall", "Brown Lab"];

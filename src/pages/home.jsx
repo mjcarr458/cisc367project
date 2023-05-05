@@ -1,10 +1,12 @@
 import { addDoc, collection } from "@firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.css';
+import {BUILDINGS} from '../GLOBALVARS';
 import React, { useRef, useState } from 'react';
 import { Button, Dropdown } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { CDBSlider, CDBContainer } from 'cdbreact';
 import Slider from "/Users/michaelcarr/VSCode/cisc367project/src/components/slider.js"
+
 
 export default function Home() {
     const messageRef = useRef();
@@ -59,15 +61,11 @@ export default function Home() {
             {building ? building : "Choose Building" }
         </Dropdown.Toggle>
         <Dropdown.Menu>
-        <Dropdown.Item onClick={() => changeBuilding("Redding Hall")}>
-            Redding Hall
+        {BUILDINGS.map( buildingName => (
+            <Dropdown.Item onClick={() => changeBuilding(buildingName)}>
+            {buildingName}
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeBuilding("Smith Hall")}>
-            Smith Hall
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeBuilding("Brown Lab")}>
-            Brown Lab
-          </Dropdown.Item>
+        ))}
         </Dropdown.Menu>
         </Dropdown>
         <Button>
