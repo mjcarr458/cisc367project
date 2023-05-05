@@ -1,11 +1,10 @@
 import { addDoc, collection } from "@firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.css';
-import {BUILDINGS} from '../GLOBALVARS';
 import React, { useRef, useState } from 'react';
 import { Button, Dropdown } from "react-bootstrap";
+import Slider from "../components/slider.js";
 import { firestore } from "../firebase";
-import { CDBSlider, CDBContainer } from 'cdbreact';
-import Slider from "/src/components/slider.js"
+import { BUILDINGS } from '../GLOBALVARS';
 
 
 export default function Home() {
