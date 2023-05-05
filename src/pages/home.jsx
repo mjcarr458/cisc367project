@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Dropdown } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { CDBSlider, CDBContainer } from 'cdbreact';
-import Slider from "/Users/michaelcarr/VSCode/cisc367project/src/components/slider.js"
+import Slider from "/src/components/slider.js"
 
 export default function Home() {
     const messageRef = useRef();
