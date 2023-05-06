@@ -1,0 +1,22 @@
+{
+    "templatebuilding": {
+        "rooms": {
+            "templateroom":{
+                "number": "000",
+                "building": "templatebuilding",
+                "floor": "basement",
+                "type": "lab",
+                "size": "small"
+            }
+        },
+        "name": "templatebuilding",
+        "access": {
+            "elevators": false,
+            "entrances": "no data provided"
+        },
+        "other": []
+    }
+
+
+
+    }

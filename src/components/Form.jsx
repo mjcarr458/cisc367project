@@ -1,6 +1,6 @@
-import { Room, Access, Building } from "../datastructures";
 import { Button, Form, Modal, InputGroup, Alert } from "react-bootstrap";
 import React, { useState } from "react";
+import BuildingEditor from "./BuildingEditor";
 
 function newBuilding(buildingname) {
   return {
@@ -90,13 +90,7 @@ export default function DataEntry( {buildingInfo, setBuildingInfo}) {
 
             
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
+            <BuildingEditor allInfo={buildingInfo} setAllInfo={setBuildingInfo} building={building}></BuildingEditor>
             <Button variant="primary" type="submit">
               Submit
             </Button>
