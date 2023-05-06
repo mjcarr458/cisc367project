@@ -5,15 +5,16 @@ import { Button, Dropdown } from "react-bootstrap";
 import Slider from "../components/slider.js";
 import { firestore } from "../firebase";
 import { BUILDINGS } from '../GLOBALVARS';
+import BuildingInfo from '../sampledata.json'
 import DataEntry from "../components/Form.jsx"
+
 
 
 export default function Home() {
     const messageRef = useRef();
     const ref = collection(firestore, "messages");
     const [building, setBuilding] = useState(null);
-    const [buildingList, setBuildingList] =useState(BUILDINGS);
-
+    const [buildingInfo, setBuildingInfo] =useState(BuildingInfo);
     const handleSave = async(e) => {
         e.preventDefault();
         console.log(messageRef.current.value);
@@ -41,7 +42,7 @@ export default function Home() {
     margin: 'auto', 
     padding: '5%',
     justifyContent: 'left' }}>
-        <DataEntry buildingList={buildingList} setBuildingList={setBuildingList}/>
+        <DataEntry buildingInfo={buildingInfo} setBuildingInfo={setBuildingInfo}/>
         <form onSubmit={handleSave}>
             <label> Enter Message</label>
             <input type="text" ref = {messageRef} />

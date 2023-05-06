@@ -2,11 +2,22 @@ import { Room, Access, Building } from "../datastructures";
 import { Button, Form, Modal, InputGroup, Alert } from "react-bootstrap";
 import React, { useState } from "react";
 
-export default function DataEntry( {buildingList, setBuildingList}) {
+function newBuilding(buildingname) {
+  return {
+      rooms: {},
+      name: buildingname,
+      access: {
+          elevators: false,
+          entrances: "no data provided"
+      },
+      other: []
+    }}
+
+export default function DataEntry( {buildingInfo, setBuildingInfo}) {
   const [show, setShow] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [building, setBuilding] = useState("default");
-  const [showAlert, setShowAlert] = useState(false)
+  const [showAlert, setShowAlert] = useState(false);
   const handleClose = () => {
     setShow(false);
     setShowNew(false);
@@ -25,8 +36,8 @@ export default function DataEntry( {buildingList, setBuildingList}) {
     setBuilding(e.target.value);
   }
   const addBuilding = (e) => {
-    if (!buildingList.includes(building)) {
-        setBuildingList([...buildingList, building]);
+    if (!Object.keys(buildingInfo).includes(building)) {
+        setBuildingInfo({...buildingInfo, [building]:newBuilding(building)});
         setShowAlert(false);
     }
     else {
@@ -37,7 +48,6 @@ export default function DataEntry( {buildingList, setBuildingList}) {
 
   return (
     <>
-      {console.log(setBuildingList)}
       <Button variant="primary" onClick={handleShow}>
         Add Building Information
       </Button>
@@ -55,14 +65,13 @@ export default function DataEntry( {buildingList, setBuildingList}) {
                 onChange={handleCustom}
               >
                 <option value="default">Select Building</option>
-                {console.log(buildingList)}
-                {buildingList.map((building) => (
+                {Object.keys(buildingInfo).map((building) => (
                   <option value={building}>{building}</option>
                 ))}
                 <option value="new">Add New Building</option>
               </Form.Select>
             </Form.Group>
-
+            
             {showNew && 
               <InputGroup className="mb-3">
               <Form.Control
