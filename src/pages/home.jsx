@@ -5,12 +5,14 @@ import { Button, Dropdown } from "react-bootstrap";
 import Slider from "../components/slider.js";
 import { firestore } from "../firebase";
 import { BUILDINGS } from '../GLOBALVARS';
+import DataEntry from "../components/Form.jsx"
 
 
 export default function Home() {
     const messageRef = useRef();
     const ref = collection(firestore, "messages");
     const [building, setBuilding] = useState(null);
+    const [buildingList, setBuildingList] =useState(BUILDINGS);
 
     const handleSave = async(e) => {
         e.preventDefault();
@@ -39,7 +41,7 @@ export default function Home() {
     margin: 'auto', 
     padding: '5%',
     justifyContent: 'left' }}>
-        
+        <DataEntry buildingList={buildingList} setBuildingList={setBuildingList}/>
         <form onSubmit={handleSave}>
             <label> Enter Message</label>
             <input type="text" ref = {messageRef} />
