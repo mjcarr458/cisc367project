@@ -54,7 +54,7 @@ export default function DataEntry( {buildingInfo, setBuildingInfo}) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Information</Modal.Title>
+          <Modal.Title>Add InformationFORCE</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
