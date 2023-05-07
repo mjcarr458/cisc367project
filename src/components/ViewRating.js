@@ -33,7 +33,7 @@ const findAll = async(building) => {
 }
 
 
-const ViewRatingNoise = ({rating}) => {  
+const ViewRating = ({rating}) => {  
     
 
     //findAll(building)
@@ -58,4 +58,4 @@ const ViewRatingNoise = ({rating}) => {
       );
 };
 
-export default ViewRatingNoise;
+export default ViewRating;

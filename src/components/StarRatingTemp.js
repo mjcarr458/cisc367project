@@ -5,7 +5,7 @@ import { firestore } from "../firebase";
 
 
 const sendInfo = async(rating, building) => {
-    const ref = collection(firestore, "noise");
+    const ref = collection(firestore, "temp");
     console.log("Rating: ", rating, " Building", building);
 
     let data = {

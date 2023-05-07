@@ -9,7 +9,7 @@ import StarRatingNoise from "../components/StarRatingNoise.js";
 import StarRatingLight from "../components/StarRatingLighting.js";
 import StarRatingCrowd from "../components/StarRatingCrowd.js";
 import StarRatingTemp from "../components/StarRatingTemp.js";
-import ViewRatingNoise from "../components/ViewNoise.js";
+import ViewRating from "../components/ViewRating.js";
 import './style.css';
 
 
@@ -18,8 +18,11 @@ export default function Home() {
     const [viewMode, setViewMode] = useState(true);
     const ref = collection(firestore, "messages");
     const [building, setBuilding] = useState(null);
+    const [viewNoise, setViewNoise] = useState(0);
+    const [viewLight, setViewLight] = useState(0);
+    const [viewCrowd, setViewCrowd] = useState(0);
+    const [viewTemp, setViewTemp] = useState(0);
 
-    var viewNoise = 0;
 
     const handleSave = async(e) => {
         e.preventDefault();
@@ -36,7 +39,7 @@ export default function Home() {
         }
     }
 
-    const getInfo = async(building, category) => {
+    async function getInfo(building, category){
 
         var sum = 0
         var count = 0
@@ -73,14 +76,48 @@ export default function Home() {
         setViewMode(false);
         console.log(viewMode)
     }
+    
+    function setNoiseAvg(building){
+        const noisePromise = getInfo(building, "noise")
+            noisePromise.then((value) => {
+                console.log("VALUE: ", value);
+                setViewNoise(value)
+            })
+    }
+
+    function setLightAvg(building){
+        const noisePromise = getInfo(building, "lights")
+            noisePromise.then((value) => {
+                console.log("VALUE: ", value);
+                setViewLight(value)
+            })
+    }
+
+    function setCrowdAvg(building){
+        const noisePromise = getInfo(building, "crowd")
+            noisePromise.then((value) => {
+                console.log("VALUE: ", value);
+                setViewCrowd(value)
+            })
+    }
+
+    function setTempAvg(building){
+        const noisePromise = getInfo(building, "temp")
+            noisePromise.then((value) => {
+                console.log("VALUE: ", value);
+                setViewTemp(value)
+            })
+    }
+
 
     function changeBuilding(newBuilding){
         if (viewMode){
-            setBuilding(newBuilding);
-            const viewNoise = new Promise(getInfo(newBuilding, "noise")) ;
-            console.log("viewNoise: ", viewNoise.promised)
-
+            setNoiseAvg(newBuilding)
+            setLightAvg(newBuilding)
+            setCrowdAvg(newBuilding);
+            setTempAvg(newBuilding)
         }
+        console.log("viewNoise: ", viewNoise)
         setBuilding(newBuilding)
         console.log(newBuilding)
     }
@@ -129,7 +166,13 @@ export default function Home() {
             ?   <div>
                 <label> viewMode</label>
                 <label> Noise </label>
-                <ViewRatingNoise rating={viewNoise}/>
+                <ViewRating rating={viewNoise}/>
+                <label> Light</label>
+                <ViewRating rating={viewLight}/>
+                <label> Crowd</label>
+                <ViewRating rating={viewCrowd}/>
+                <label> Temp</label>
+                <ViewRating rating={viewTemp}/>
                 </div>
             : <div> 
                 <label> Edit Mode</label>
