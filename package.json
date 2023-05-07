@@ -42,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "cdbreact": "^1.5.14",
     "gh-pages": "^5.0.0"
   }
 }
