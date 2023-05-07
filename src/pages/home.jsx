@@ -17,7 +17,7 @@ export default function Home() {
     const messageRef = useRef();
     const [viewMode, setViewMode] = useState(true);
     const ref = collection(firestore, "messages");
-    const [building, setBuilding] = useState(null);
+    const [building, setBuilding] = useState("Redding Hall");
     const [viewNoise, setViewNoise] = useState(0);
     const [viewLight, setViewLight] = useState(0);
     const [viewCrowd, setViewCrowd] = useState(0);
