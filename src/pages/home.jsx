@@ -1,6 +1,6 @@
 import { addDoc, collection, getDocs, query, where } from "@firebase/firestore";
 import 'bootstrap/dist/css/bootstrap.css';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, Dropdown } from "react-bootstrap";
 import Slider from "../components/slider.js";
 import { firestore } from "../firebase";
@@ -20,7 +20,7 @@ export default function Home() {
     const messageRef = useRef();
     const [viewMode, setViewMode] = useState(true);
     const ref = collection(firestore, "messages");
-    const [building, setBuilding] = useState("Redding Hall");
+    const [building, setBuilding] = useState("");
     const [viewNoise, setViewNoise] = useState(0);
     const [viewLight, setViewLight] = useState(0);
     const [viewCrowd, setViewCrowd] = useState(0);
@@ -111,7 +111,7 @@ export default function Home() {
                 setViewTemp(value)
             })
     }
-
+            
 
     function changeBuilding(newBuilding){
         if (viewMode){
@@ -124,6 +124,12 @@ export default function Home() {
         setBuilding(newBuilding)
         console.log(newBuilding)
     }
+
+    useEffect(() => {
+        changeBuilding("Redding Hall")
+    });
+
+    
     return (
     <div style={{ 
     display: 'block',
