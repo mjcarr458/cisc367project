@@ -20,11 +20,12 @@ export default function Home() {
     const messageRef = useRef();
     const [viewMode, setViewMode] = useState(true);
     const ref = collection(firestore, "messages");
-    const [building, setBuilding] = useState("");
+    const [building, setBuilding] = useState("Redding Hall");
     const [viewNoise, setViewNoise] = useState(0);
     const [viewLight, setViewLight] = useState(0);
     const [viewCrowd, setViewCrowd] = useState(0);
     const [viewTemp, setViewTemp] = useState(0);
+    const [firstLoad, setFirstLoad] = useState(true)
 
     const [buildingInfo, setBuildingInfo] =useState(BuildingInfo);
     const handleSave = async(e) => {
@@ -126,10 +127,12 @@ export default function Home() {
     }
 
     useEffect(() => {
-        changeBuilding("Redding Hall")
+        if (firstLoad){
+            changeBuilding("Redding Hall")
+            setFirstLoad(false)
+        }
     });
 
-    
     return (
     <div style={{ 
     display: 'block',
