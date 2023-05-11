@@ -4,21 +4,23 @@ import { firestore } from "../firebase";
 
 
 
-const sendInfo = async(rating, building) => {
+const sendInfo = async(rating, building, time) => {
     const ref = collection(firestore, "noise");
     console.log("Rating: ", rating, " Building", building);
 
     let data = {
         rating: rating,
-        building: building
+        building: building,
+        time: time
     }
     addDoc(ref,data);
 }
 
-const StarRatingNoise = ({building}) => {  
+const StarRatingNoise = ({building, time}) => {  
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     console.log({building})
+    console.log("Component Time: ", {time})
     return (
         <div className="star-rating">
           {[...Array(5)].map((star, index) => {
@@ -30,7 +32,7 @@ const StarRatingNoise = ({building}) => {
                 className={index <= (hover || rating) ? "on" : "off"}
                 onClick={() => {
                     setRating(index);
-                    sendInfo(index,building);}}
+                    sendInfo(index,building, time);}}
                 onMouseEnter={() => setHover(index)}
                 onMouseLeave={() => setHover(rating)}
               >

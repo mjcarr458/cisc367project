@@ -4,18 +4,19 @@ import { firestore } from "../firebase";
 
 
 
-const sendInfo = async(rating, building) => {
+const sendInfo = async(rating, building, time) => {
     const ref = collection(firestore, "lights");
     console.log("Rating: ", rating, " Building", building);
 
     let data = {
         rating: rating,
-        building: building
+        building: building,
+        time: time
     }
     addDoc(ref,data);
 }
 
-const StarRatingLight = ({building}) => {  
+const StarRatingLight = ({building, time}) => {  
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     console.log({building})
@@ -30,7 +31,7 @@ const StarRatingLight = ({building}) => {
                 className={index <= (hover || rating) ? "on" : "off"}
                 onClick={() => {
                     setRating(index);
-                    sendInfo(index,building);}}
+                    sendInfo(index,building, time);}}
                 onMouseEnter={() => setHover(index)}
                 onMouseLeave={() => setHover(rating)}
               >
