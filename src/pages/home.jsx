@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Button, Dropdown } from "react-bootstrap";
 import Slider from "../components/slider.js";
 import { firestore } from "../firebase";
-import { BUILDINGS } from '../GLOBALVARS';
+import { BUILDINGS, TIME } from '../GLOBALVARS';
 import StarRatingNoise from "../components/StarRatingNoise.js";
 import StarRatingLight from "../components/StarRatingLighting.js";
 import StarRatingCrowd from "../components/StarRatingCrowd.js";
@@ -20,11 +20,13 @@ export default function Home() {
     const messageRef = useRef();
     const [viewMode, setViewMode] = useState(true);
     const ref = collection(firestore, "messages");
-    const [building, setBuilding] = useState("");
+    const [building, setBuilding] = useState("Redding Hall");
     const [viewNoise, setViewNoise] = useState(0);
     const [viewLight, setViewLight] = useState(0);
     const [viewCrowd, setViewCrowd] = useState(0);
     const [viewTemp, setViewTemp] = useState(0);
+    const [time, setTime] = useState("8:00 AM");
+    const [firstLoad, setFirstLoad] = useState(true)
 
     const [buildingInfo, setBuildingInfo] =useState(BuildingInfo);
     const handleSave = async(e) => {
@@ -42,14 +44,15 @@ export default function Home() {
         }
     }
 
-    async function getInfo(building, category){
+    async function getInfo(building, category, time){
 
         var sum = 0
         var count = 0
     
         const q = query(
             collection(firestore, category), 
-            where("building", "==", building)
+            where("building", "==", building),
+            where("time", "==", time)
           );
     
         const docsSnap = await getDocs(q);
@@ -60,6 +63,7 @@ export default function Home() {
         })
         console.log("=========================")
         console.log("BUILDING", building)
+        console.log("TIME: ", time)
         console.log("COUNT: ", count)
         console.log("SUM: ", sum)
         var avg = sum/count
@@ -80,32 +84,32 @@ export default function Home() {
         console.log(viewMode)
     }
     
-    function setNoiseAvg(building){
-        const noisePromise = getInfo(building, "noise")
+    function setNoiseAvg(building, time){
+        const noisePromise = getInfo(building, "noise", time)
             noisePromise.then((value) => {
                 console.log("VALUE: ", value);
                 setViewNoise(value)
             })
     }
 
-    function setLightAvg(building){
-        const noisePromise = getInfo(building, "lights")
+    function setLightAvg(building, time){
+        const noisePromise = getInfo(building, "lights", time)
             noisePromise.then((value) => {
                 console.log("VALUE: ", value);
                 setViewLight(value)
             })
     }
 
-    function setCrowdAvg(building){
-        const noisePromise = getInfo(building, "crowd")
+    function setCrowdAvg(building, time){
+        const noisePromise = getInfo(building, "crowd", time)
             noisePromise.then((value) => {
                 console.log("VALUE: ", value);
                 setViewCrowd(value)
             })
     }
 
-    function setTempAvg(building){
-        const noisePromise = getInfo(building, "temp")
+    function setTempAvg(building, time){
+        const noisePromise = getInfo(building, "temp", time)
             noisePromise.then((value) => {
                 console.log("VALUE: ", value);
                 setViewTemp(value)
@@ -115,18 +119,35 @@ export default function Home() {
 
     function changeBuilding(newBuilding){
         if (viewMode){
-            setNoiseAvg(newBuilding)
-            setLightAvg(newBuilding)
-            setCrowdAvg(newBuilding);
-            setTempAvg(newBuilding)
+            setNoiseAvg(newBuilding, time)
+            setLightAvg(newBuilding, time)
+            setCrowdAvg(newBuilding, time);
+            setTempAvg(newBuilding, time)
         }
         console.log("viewNoise: ", viewNoise)
         setBuilding(newBuilding)
         console.log(newBuilding)
     }
 
+    function changeTime(newTime){
+        if (viewMode){
+            setNoiseAvg(building, newTime)
+            setLightAvg(building, newTime)
+            setCrowdAvg(building, newTime);
+            setTempAvg(building, newTime)
+        }
+        console.log("viewNoise: ", viewNoise)
+        setTime(newTime)
+        console.log(newTime)
+    }
+
     useEffect(() => {
-        changeBuilding("Redding Hall")
+        if (firstLoad){
+            changeBuilding("Redding Hall")
+            changeTime("8:00 AM")
+            setFirstLoad(false)
+        }
+    
     });
 
     
@@ -151,9 +172,25 @@ export default function Home() {
             justifyContent: 'space-between', 
             width: "100%",
             border: '5px solid'}}>
-        <Button>
+        
+        
+        {/* <Button>
             Time
-        </Button>
+        </Button> */}
+
+        <Dropdown>
+        <Dropdown.Toggle variant="primary">
+            {time ? time : "Time" }
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+        {TIME.map( time => (
+            <Dropdown.Item onClick={() => changeTime(time)}>
+            {time}
+          </Dropdown.Item>
+        ))}
+        </Dropdown.Menu>
+        </Dropdown>
+
         <Dropdown>
         <Dropdown.Toggle variant="primary">
             {building ? building : "Choose Building" }
@@ -186,13 +223,13 @@ export default function Home() {
             : <div> 
                 <label> Edit Mode</label>
                 <label> Noise</label>
-                <StarRatingNoise building={building}/>
+                <StarRatingNoise building={building} time={time}/>
                 <label> Light</label>
-                <StarRatingLight building={building}/>
+                <StarRatingLight building={building} time={time}/>
                 <label> Crowd</label>
-                <StarRatingCrowd building={building}/>
+                <StarRatingCrowd building={building} time={time}/>
                 <label> Temperature</label>
-                <StarRatingTemp building={building}/>
+                <StarRatingTemp building={building} time={time}/>
             </div>     
             }
         </div>
