@@ -59,7 +59,7 @@ export default function Home() {
 
         const docsSnap = await getDocs(q);
         await docsSnap.forEach(doc => {
-            messageListLocal.push(doc.data().message)
+            messageListLocal.push([doc.id ,doc.data().message])
         })
         return messageListLocal
     }
@@ -174,10 +174,15 @@ export default function Home() {
         console.log(newTime)
     }
 
+    function handleMessageList(){
+        getMessageList(building)
+    }
+
+
     function PopUpMenu() {
         return (
             <div>
-                {messageList.map(txt => <MessageHolder message= {txt}></MessageHolder>)}
+                {messageList.map(obj => <MessageHolder message= {obj} messageList = {messageList} handleMessageList = {handleMessageList}></MessageHolder>)}
                 {/* {messageList.map(txt => <p>{txt}</p>)} */}
             </div>
           );
@@ -229,7 +234,7 @@ export default function Home() {
                 <StarRatingTemp building={building} time={time}/>
 
                 <form onSubmit={handleSave}>
-                <label> Enter Message</label>
+                <label> Add Community Note</label>
                 <input type="text" ref = {messageRef} />
                 <button type="submit">Save</button>
                 </form>
@@ -289,7 +294,7 @@ export default function Home() {
         </Dropdown.Menu>
         </Dropdown>
         <Button onClick={() => AppearPopUp()}>
-            Accessibility Info
+           Community Notes
         </Button>
         </div>
         <div> 
