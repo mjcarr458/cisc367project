@@ -51,7 +51,6 @@ export default function BuildingEditor({ allInfo, setAllInfo, building }) {
               {Object.keys(readOnlyInfo.rooms[room]).map((attribute) => (
                 <p>
                   {attribute}: {readOnlyInfo.rooms[room][attribute]}
-                  hi god its me megan i think i might be actually lliterally dying rn
                 </p>
               ))}
             </Accordion.Body>
