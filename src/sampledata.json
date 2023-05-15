@@ -1,56 +1,70 @@
 {
-    "templatebuilding": {
+    "Smith Hall": {
         "rooms": {
-            "templateroom":{
-                "number": "000",
-                "building": "templatebuilding",
-                "floor": "basement",
-                "type": "lab",
-                "size": "small"
+            "Smith 140":{
+                "number": "140",
+                "building": "Smith Hall",
+                "floor": "first",
+                "type": "lecture hall",
+                "size": "large"
+            },
+            "SPARC Lab":{
+                "number": "SPARC Lab",
+                "building": "Smith Hall",
+                "floor": "second",
+                "type": "lounge, CISC access only",
+                "size": "medium"
             }
         },
-        "name": "templatebuilding",
+        "name": "Smith Hall",
         "access": {
-            "elevators": false,
-            "entrances": "no data provided"
+            "elevators": "two elevators, located in opposite corners of the building", 
+            "entrances": "one door open on each side of building, lecture halls have separate outdoor entrances"
         },
-        "other": []
-    }
+        "other": ["ecogrounds coffee on the first floor", "lecture halls have a lot of steps!!"]
+    },
 
-    "templatebuilding": {
+    "Redding Hall": {
         "rooms": {
-            "templateroom":{
-                "number": "000",
-                "building": "templatebuilding",
-                "floor": "basement",
-                "type": "lab",
+            "Main Lounge":{
+                "number": "Main Lounge",
+                "building": "Redding Hall",
+                "floor": "first",
+                "type": "lounge",
+                "size": "large"
+            },
+            "Kitchen":{
+                "number": "Kitchen",
+                "building": "Redding Hall",
+                "floor": "first",
+                "type": "kitchen",
                 "size": "small"
             }
         },
-        "name": "templatebuilding",
+        "name": "Redding Hall",
         "access": {
-            "elevators": false,
-            "entrances": "no data provided"
+            "elevators": "one elevator at front of building",
+            "entrances": "main entrance (front) always open, back entrance open at the back stairwells"
         },
-        "other": []
-    }
+        "other": ["residence hall with AC", "only one elevator", "elevator requires UDID building access", "gender neutral bathroom available on first floor"]
+    },
 
-    "templatebuilding": {
+    "Brown Lab": {
         "rooms": {
-            "templateroom":{
-                "number": "000",
-                "building": "templatebuilding",
-                "floor": "basement",
-                "type": "lab",
+            "Brown 116":{
+                "number": "116",
+                "building": "Brown Lab",
+                "floor": "first",
+                "type": "classroom with hexagonal tables",
                 "size": "small"
             }
         },
-        "name": "templatebuilding",
+        "name": "Brown Lab",
         "access": {
-            "elevators": false,
-            "entrances": "no data provided"
+            "elevators": "no information provided",
+            "entrances": "front entrance open but doors are very heavy/uneven and crowded"
         },
-        "other": []
+        "other": ["front entrance super crowded", "women's & men's bathrooms on opposite side of the building, gender neutral bathroom: ???", "people often crowd around the front lobby area of building between classes -- hard to navigate"]
     }
 
 

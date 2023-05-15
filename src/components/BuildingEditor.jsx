@@ -39,7 +39,7 @@ export default function BuildingEditor({ allInfo, setAllInfo, building }) {
       <h3>Accessibility</h3>
       {Object.keys(readOnlyInfo.access).map((attribute) => (
         <p>
-          {attribute}: {readOnlyInfo.access.attribute}
+          {attribute}: {readOnlyInfo.access[attribute]}
         </p>
       ))}
       <h2>Rooms</h2>
